@@ -7,7 +7,8 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://mysql-4438-cnpm-1.g.aivencloud.com:18300/defaultdb?sslmode=require";
     private static final String USER = "avnadmin";
-    private static final String PASSWORD = "AVNS_nCHMWv1LuieaJeYzUhe";
+    private static final String PASSWORD = System.getenv("DB_PASSWORD");
+    ;
 
     public static Connection getConnection() {
         try {
