@@ -1,18 +1,50 @@
-package entity;
+package model;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "users")  // Tên bảng trong MySQL
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID tự động tăng
     private int id;
+
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(name = "full_name")
     private String fullName;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
+
     private String role;
+
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    // Constructor
+    // Constructor không tham số (bắt buộc cho JPA)
+    public User() {}
+
+    // Constructor dùng khi tạo User mới
+    public User(String username, String password, String fullName, String email, String phoneNumber, String role) {
+        this.username = username;
+        this.password = password;
+        this.fullName = fullName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    // Constructor đầy đủ (dùng khi lấy từ DB)
     public User(int id, String username, String password, String fullName, String email, String phoneNumber, String role, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
@@ -47,5 +79,4 @@ public class User {
     public void setRole(String role) { this.role = role; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
